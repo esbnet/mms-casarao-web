@@ -1,0 +1,286 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model alugueis {
+  id               Int                       @id @default(autoincrement())
+  funcionario_id   String
+  cliente_id       String
+  equipamento_id   String
+  data_retirada    DateTime?
+  data_devolucao   DateTime?
+  valor            Float
+  nota             String
+  status           alugueis_status           @default(RETIRADA)
+  status_pagamento alugueis_status_pagamento @default(PENDENTE)
+}
+
+model ambientes {
+  id     Int              @id @default(autoincrement())
+  nome   String
+  status ambientes_status @default(ATIVO)
+}
+
+model artistas {
+  id             Int             @id @default(autoincrement())
+  nome           String
+  data_nacimento DateTime
+  email          String
+  telefone       String
+  whatsapp       Boolean
+  bio            String
+  foto           String
+  status         artistas_status @default(ATIVO)
+  createAt       DateTime        @default(now())
+  updateAt       DateTime?
+  deletedAt      DateTime?
+}
+
+model banda_artistas {
+  id             Int                   @id @default(autoincrement())
+  banda_id       String
+  artista_id     String
+  instrumento_id String
+  data_saida     DateTime
+  nota           String
+  status         banda_artistas_status @default(ATIVO)
+  createAt       DateTime              @default(now())
+  updateAt       DateTime
+  terminateAt    DateTime
+}
+
+model bandas {
+  id         Int           @id @default(autoincrement())
+  nome       String
+  bio        String
+  logo       String
+  foto       String
+  contato_id String
+  status     bandas_status @default(ATIVA)
+  createAt   DateTime      @default(now())
+  updateAt   DateTime
+  deletedAt  DateTime
+}
+
+model emprestimos {
+  id             Int                @id @default(autoincrement())
+  funcionario_id String
+  cliente_id     String
+  data           DateTime
+  data_devolucao DateTime
+  duracao        String
+  valor          Float
+  status         emprestimos_status @default(RETIRADA)
+  nota           String
+}
+
+model ensaio {
+  id               Int                     @id @default(autoincrement())
+  agendamento_id   String
+  date_start       DateTime
+  date_end         DateTime
+  pagamento_id     String
+  nota             String
+  status           ensaio_status           @default(AGENDADO)
+  status_pagamento ensaio_status_pagamento @default(PENDENTE)
+}
+
+model equipamento_categorias {
+  id   Int    @id @default(autoincrement())
+  nome String
+  nota String
+}
+
+model equipamentos {
+  id                        Int                 @id @default(autoincrement())
+  nome                      String
+  data_compra               DateTime?
+  marca                     String?
+  modelo                    String?
+  valor                     Float?
+  nota                      String?
+  equipamento_categorias_id String
+  status                    equipamentos_status @default(DISPONIVEL)
+  createAt                  DateTime            @default(now())
+  updateAt                  DateTime            @default(now())
+  deletedAt                 DateTime
+
+  @@index([equipamento_categorias_id], map: "equipamentos_equipamento_categorias_id_fkey")
+}
+
+model eventos {
+  id               Int                      @id @default(autoincrement())
+  nome             String
+  descricao        String
+  funcionario_id   String
+  cliente_id       String
+  data             DateTime
+  duracao          String
+  valor            Float
+  status           eventos_status           @default(PRODUCAO)
+  status_pagamento eventos_status_pagamento @default(PENDENTE)
+  nota             String
+}
+
+model funcionarios {
+  id             Int                 @id @default(autoincrement())
+  nome           String
+  apelido        String
+  data_nacimento DateTime
+  funcoes_id     String
+  status         funcionarios_status @default(ATIVO)
+  createAt       DateTime            @default(now())
+  updateAt       DateTime
+  deletedAt      DateTime
+
+  @@index([funcoes_id], map: "funcionarios_funcoes_id_fkey")
+}
+
+model funcoes {
+  id   Int    @id @default(autoincrement())
+  nome String
+  nota String
+}
+
+model instrumento_categorias {
+  id   Int    @id @default(autoincrement())
+  nome String
+  nota String
+}
+
+model instrumentos {
+  id           Int                 @id @default(autoincrement())
+  nome         String
+  nota         String
+  categoria_id String
+  status       instrumentos_status @default(ATIVO)
+}
+
+model messages {
+  id         Int      @id @default(autoincrement())
+  text       String
+  created_at DateTime @default(now())
+  user_id    String
+
+  @@index([user_id], map: "messages_user_id_fkey")
+}
+
+model musicas {
+  id       Int      @id @default(autoincrement())
+  nome     String
+  autor    String
+  nota     String
+  createAt DateTime @default(now())
+  updateAt DateTime
+}
+
+model users {
+  id         Int    @id @default(autoincrement())
+  name       String
+  github_id  Int
+  avatar_url String
+  login      String
+}
+
+model user {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique(map: "User_email_key")
+  name     String?
+  password String
+}
+
+enum alugueis_status {
+  RETIRADA
+  ENTREGUE
+  DEVOLVIDO
+}
+
+enum alugueis_status_pagamento {
+  PENDENTE
+  PAGO
+  CANCELADO
+}
+
+enum ambientes_status {
+  ATIVO
+  OCUPADO
+  MANUTENCAO
+  DESATIVADO
+}
+
+enum artistas_status {
+  ATIVO
+  FERIAS
+  PARADO
+}
+
+enum banda_artistas_status {
+  ATIVO
+  FERIAS
+  SAIU
+}
+
+enum bandas_status {
+  ATIVA
+  FERIAS
+  ACABOU
+}
+
+enum emprestimos_status {
+  RETIRADA
+  ENTRERGUE
+  DEVOLVIDO
+}
+
+enum ensaio_status {
+  AGENDADO
+  ANDAMENTO
+  CANCELADO
+}
+
+enum ensaio_status_pagamento {
+  PENDENTE
+  PAGO
+  CANCELADO
+}
+
+enum equipamentos_status {
+  DISPONIVEL
+  DANIFICADO
+  MANUTENCAO
+  VENDIDO
+  EMPRESTIMO
+}
+
+enum eventos_status {
+  PRODUCAO
+  DIVULGACAO
+  ANDAMENTO
+  ENCERRADO
+  CANCELADO
+}
+
+enum eventos_status_pagamento {
+  PENDENTE
+  PAGO
+  CANCELADO
+}
+
+enum funcionarios_status {
+  ATIVO
+  FOLGA
+  DESLIGADO
+}
+
+enum instrumentos_status {
+  ATIVO
+  DANIFICADO
+  MANUTENCAO
+  VENDIDO
+  EMRPESTADO
+}

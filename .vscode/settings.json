@@ -1,0 +1,6 @@
+{
+  "diffEditor.codeLens": true,
+  "editor.tabCompletion": "on",
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}
