@@ -1,4 +1,5 @@
 import "../../styles/globals.css"
+import styles from '../../styles/Home.module.css'
 
 import { Header } from "@/components/header/page"
 import { Footer } from "@/components/footer/page"
@@ -17,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className="">
+      <body className={styles.container}>
         <Header />
         {children}
         <Footer />
