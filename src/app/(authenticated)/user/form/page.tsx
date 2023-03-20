@@ -1,5 +1,9 @@
+import { Prisma, PrismaClient } from "@prisma/client"
+
 import { BiEdit, BiTrashAlt } from "react-icons/bi"
 import { TbZoomMoney } from "react-icons/tb"
+
+const prisma = Prisma
 
 export default function Form() {
   return (
@@ -24,6 +28,7 @@ export default function Form() {
           // value={form.name}
         />
       </div>
+
       <div className='mb-4'>
         <label
           className='block text-gray-700 text-sm font-bold mb-2'
@@ -40,7 +45,8 @@ export default function Form() {
           // value={form.email}
         />
       </div>
-      <div className='mb-6'>
+
+      <div className='mb-4'>
         <label
           className='block text-gray-700 text-sm font-bold mb-2'
           htmlFor='password'
@@ -60,7 +66,7 @@ export default function Form() {
         </p>
       </div>
 
-      <div>
+      <div className="flex gap-2 mb-6">
         <div className='form-check'>
           <input
             type='radio'
@@ -101,6 +107,7 @@ export default function Form() {
           Esqueceru a Senha?
         </a>
       </div>
+
     </form>
   )
 }

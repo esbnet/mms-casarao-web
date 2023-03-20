@@ -97,7 +97,7 @@ export default function User() {
         <div>Usuários</div>
       </h1>
 
-      <div className='mx-auto flex justify-between py-5 border-b'>
+      <div className='mx-auto flex justify-between py-5 border-b mb-4'>
         <div className='left flex gap-3'>
           <button className='flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-800'>
             Add Usuário
@@ -109,11 +109,13 @@ export default function User() {
       </div>
 
       {/* collapsable */}
-      <div className='container mx-auto'>
+      <div className='container mx-auto mb-4'>
         <Form />
       </div>
       {/* table */}
-      <Table />
+      <div className='container mx-auto mb-4'>
+        <Table />
+      </div>
     </main>
   )
 }
