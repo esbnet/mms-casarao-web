@@ -2,31 +2,23 @@
 
 import type { NextApiRequest, NextApiResponse } from "next"
 import { PrismaClient } from "@prisma/client"
+import user from "@/pages/api/user"
 
 const prisma = new PrismaClient()
 
-interface UserProps {
-  id: number
-  name: string
-  email: string
-  password: string
-}
-
-interface Users {
-  users: UserProps[]
-}
-
-// post:http://localhost:3000/api/user
+// POST: http://localhost:3000/api/user
 export async function postUser(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { name, email, password } = req.body
+    const { name, email, password, avatar_url, status } = req.body
     let user = await prisma.user.findUnique({ where: { email: email } })
     if (user !== null) {
       return res.status(200).json({
         warning: "Já existe um usuário cadastrado com esse email.",
       })
     }
-    user = await prisma.user.create({ data: { email, name, password } })
+    user = await prisma.user.create({
+      data: { email, name, password, avatar_url, status },
+    })
     return res.status(201).json(user)
   } catch (error) {
     res.status(404).json({ error: "Falha na gravação do usuário." })
@@ -37,9 +29,18 @@ export async function postUser(req: NextApiRequest, res: NextApiResponse) {
 // GET: http://localhost:3000/api/user
 export async function getUsers(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const users = await prisma.user.findMany()
-    if (!users)
-      return res.status(404).json({ error: "Nenhum usuário encontrado" })
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        avatar_url: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    })
+
     res.status(200).json(users)
   } catch (error) {
     res.status(404).json({ error: "Falha os carregar usuários." })
@@ -47,35 +48,58 @@ export async function getUsers(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-// GET: http://localhost:3000/api/user/(number)
+// GET: http://localhost:3000/api/user/(string)
 export async function findUserById(req: NextApiRequest, res: NextApiResponse) {
-  const { id } = req.query
+  const { userId } = req.query
+  console.log(userId)
   try {
     const user = await prisma.user.findUnique({
-      where: { id: Number(id) },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        avatar_url: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      where: { id: String(userId) },
     })
     if (user) return res.json(user)
-    res.json({
-      warning: `Não foi encontratdo usuário com o id: ${id}`,
+
+    return res.json({
+      warning: `Não foi encontratdo usuário com o id: ${userId}`,
     })
   } catch (error) {
     res.json({
-      error: `Não foi encontratdo usuário com o id: ${id}`,
+      error: `Não foi encontratdo usuário com o id: ${userId}`,
     })
   }
 }
 
-// GET:  http://localhost:3000/api/user/(email)
+// GET: http://localhost:3000/api/user/(email)
 export async function findUserByEmail(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { email } = req.query
+
   try {
     const user = await prisma.user.findUnique({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        avatar_url: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
       where: { email: String(email) },
     })
+
     if (user) return res.json(user)
+
     res.json({
       warning: `Não foi encontratdo usuário com o email: ${email}`,
     })
@@ -86,13 +110,14 @@ export async function findUserByEmail(
   }
 }
 
-// PUT: http://localhost:3000/api/user/(number)
+// PUT: http://localhost:3000/api/user/(string)
 export async function updateUser(req: NextApiRequest, res: NextApiResponse) {
   const { userId } = req.query
 
-  const { name, email, password } = req.body
+  const { name, email, password, avatar_url, status } = req.body
+
   try {
-    let user = await prisma.user.findUnique({ where: { id: Number(userId) } })
+    let user = await prisma.user.findUnique({ where: { id: String(userId) } })
 
     if (!user) {
       return res.json({
@@ -111,8 +136,8 @@ export async function updateUser(req: NextApiRequest, res: NextApiResponse) {
     }
 
     user = await prisma.user.update({
-      where: { id: Number(userId) },
-      data: { name, email, password },
+      where: { id: String(userId) },
+      data: { name, email, password, avatar_url, status },
     })
     res.json(user)
   } catch (error) {
@@ -123,19 +148,19 @@ export async function updateUser(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-// DELETE: http://localhost:3000/api/user/(number)
+// DELETE: http://localhost:3000/api/user/(string)
 export async function deleteUser(req: NextApiRequest, res: NextApiResponse) {
   const { userId } = req.query
-  let user = await prisma.user.findUnique({ where: { id: Number(userId) } })
+  let user = await prisma.user.findUnique({ where: { id: String(userId) } })
   if (!user) {
     return res.json({
       warning: `Não existe um usuário cadastrado com o id ${userId}.`,
     })
   }
   user = await prisma.user.delete({
-    where: { id: Number(userId) },
+    where: { id: String(userId) },
   })
   return res.json({
-    message: `Usuário com id ${userId} foi deletado permanentemente.`,
+    message: `Usuário ${user.name} foi deletado permanentemente.`,
   })
 }

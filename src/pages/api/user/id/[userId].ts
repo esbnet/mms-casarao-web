@@ -1,11 +1,16 @@
-import { deleteUser, updateUser } from "@/controller/userController"
+import { findUserById, deleteUser, updateUser } from "@/controller/userController"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const method = req.method
 
   switch (method) {
-    // =========================================================================
+
+    // list user
+    case "GET":
+      findUserById(req, res)
+      break
+
     // update user =============================================================
     case "PUT":
       updateUser(req, res)

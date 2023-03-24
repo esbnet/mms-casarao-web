@@ -1,10 +1,10 @@
 "use client"
+
 import React, { useState, useReducer } from "react"
-import useSwr from "swr"
 
 import toast from "react-hot-toast"
 
-import { FaUserCog, FaPlus } from "react-icons/fa"
+import { FaUserCog } from "react-icons/fa"
 import { AiOutlineUserAdd } from "react-icons/ai"
 
 import Table from "@/app/(authenticated)/user/table/page"
@@ -15,6 +15,9 @@ interface UserProps {
   name: string
   email: string
   password: string
+  status: string
+  created_at: string
+  updated_at: string
 }
 ;[]
 
@@ -35,6 +38,7 @@ const formReducer = (
 }
 
 export default function User() {
+
   const [formData, setFormData] = useReducer(formReducer, {})
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

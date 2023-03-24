@@ -8,7 +8,7 @@ datasource db {
 }
 
 model alugueis {
-  id               Int                       @id @default(autoincrement())
+  id               String                    @id @default(uuid())
   funcionario_id   String
   cliente_id       String
   equipamento_id   String
@@ -21,13 +21,13 @@ model alugueis {
 }
 
 model ambientes {
-  id     Int              @id @default(autoincrement())
+  id     String           @id @default(uuid())
   nome   String
   status ambientes_status @default(ATIVO)
 }
 
 model artistas {
-  id             Int             @id @default(autoincrement())
+  id             String          @id @default(uuid())
   nome           String
   data_nacimento DateTime
   email          String
@@ -42,7 +42,7 @@ model artistas {
 }
 
 model banda_artistas {
-  id             Int                   @id @default(autoincrement())
+  id             String                @id @default(uuid())
   banda_id       String
   artista_id     String
   instrumento_id String
@@ -55,7 +55,7 @@ model banda_artistas {
 }
 
 model bandas {
-  id         Int           @id @default(autoincrement())
+  id         String        @id @default(uuid())
   nome       String
   bio        String
   logo       String
@@ -68,7 +68,7 @@ model bandas {
 }
 
 model emprestimos {
-  id             Int                @id @default(autoincrement())
+  id             String             @id @default(uuid())
   funcionario_id String
   cliente_id     String
   data           DateTime
@@ -80,7 +80,7 @@ model emprestimos {
 }
 
 model ensaio {
-  id               Int                     @id @default(autoincrement())
+  id               String                  @id @default(uuid())
   agendamento_id   String
   date_start       DateTime
   date_end         DateTime
@@ -91,13 +91,13 @@ model ensaio {
 }
 
 model equipamento_categorias {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   nome String
   nota String
 }
 
 model equipamentos {
-  id                        Int                 @id @default(autoincrement())
+  id                        String              @id @default(uuid())
   nome                      String
   data_compra               DateTime?
   marca                     String?
@@ -114,7 +114,7 @@ model equipamentos {
 }
 
 model eventos {
-  id               Int                      @id @default(autoincrement())
+  id               String                   @id @default(uuid())
   nome             String
   descricao        String
   funcionario_id   String
@@ -128,7 +128,7 @@ model eventos {
 }
 
 model funcionarios {
-  id             Int                 @id @default(autoincrement())
+  id             String              @id @default(uuid())
   nome           String
   apelido        String
   data_nacimento DateTime
@@ -142,19 +142,19 @@ model funcionarios {
 }
 
 model funcoes {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   nome String
   nota String
 }
 
 model instrumento_categorias {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   nome String
   nota String
 }
 
 model instrumentos {
-  id           Int                 @id @default(autoincrement())
+  id           String              @id @default(uuid())
   nome         String
   nota         String
   categoria_id String
@@ -162,7 +162,7 @@ model instrumentos {
 }
 
 model messages {
-  id         Int      @id @default(autoincrement())
+  id         String   @id @default(uuid())
   text       String
   created_at DateTime @default(now())
   user_id    String
@@ -171,7 +171,7 @@ model messages {
 }
 
 model musicas {
-  id       Int      @id @default(autoincrement())
+  id       String   @id @default(uuid())
   nome     String
   autor    String
   nota     String
@@ -179,19 +179,21 @@ model musicas {
   updateAt DateTime
 }
 
-model users {
-  id         Int    @id @default(autoincrement())
+model user {
+  id         String      @id @default(cuid())
   name       String
-  github_id  Int
-  avatar_url String
-  login      String
+  email      String      @unique(map: "User_email_key")
+  avatar_url String?
+  status     user_status @default(ATIVO)
+  password   String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime?   @updatedAt
 }
 
-model user {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique(map: "User_email_key")
-  name     String?
-  password String
+enum user_status {
+  ATIVO
+  DESATIVADO
+  PENDENCIA
 }
 
 enum alugueis_status {
