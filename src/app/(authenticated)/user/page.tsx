@@ -1,52 +1,22 @@
 "use client"
 
-import React, { useState, useReducer } from "react"
+import { useState } from "react"
 
 import toast from "react-hot-toast"
 
 import { FaUserCog } from "react-icons/fa"
 import { AiOutlineUserAdd } from "react-icons/ai"
-
-import Table from "@/app/(authenticated)/user/table/page"
-import Form from "@/app/(authenticated)/user/form/page"
-
-interface UserProps {
-  id: string
-  name: string
-  email: string
-  password: string
-  status: string
-  created_at: string
-  updated_at: string
-}
-;[]
-
-interface FormData {
-  name: string
-  email: string
-  password: string
-}
-
-const formReducer = (
-  state: any,
-  event: { target: { name: any; value: any } }
-) => {
-  return {
-    ...state,
-    [event.target.name]: event.target.value,
-  }
-}
+import Form from "./form/page"
+import Table from "./table/page"
 
 export default function User() {
+  const [visible, setVisible] = useState(false)
 
-  const [formData, setFormData] = useReducer(formReducer, {})
+  const handler = () => {
+    setVisible(!visible)
+  }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    console.log(formData)
-
-    /*     if (isLoading) return <div>carregando...</div>
+  /*     if (isLoading) return <div>carregando...</div>
 
     const formData = new FormData(e.currentTarget)
 
@@ -68,7 +38,7 @@ export default function User() {
     } else {
       toast.success(`Usuário ${name} criado!`)
     } */
-  }
+  // }
 
   /*   const handleDelete = async () => {
     const id = ""
@@ -103,7 +73,10 @@ export default function User() {
 
       <div className='mx-auto flex justify-between py-5 border-b mb-4'>
         <div className='left flex gap-3'>
-          <button className='flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-800'>
+          <button
+            onClick={handler}
+            className=' flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-800'
+          >
             Add Usuário
             <span className='px-1'>
               <AiOutlineUserAdd size={23} />
@@ -113,9 +86,7 @@ export default function User() {
       </div>
 
       {/* collapsable */}
-      <div className='container mx-auto mb-4'>
-        <Form />
-      </div>
+      {visible ? <Form /> : <></>}
       {/* table */}
       <div className='container mx-auto mb-4'>
         <Table />
