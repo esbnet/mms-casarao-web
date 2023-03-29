@@ -1,15 +1,12 @@
-"use client"
+// "use client"
 
 import toast from "react-hot-toast"
-
 import { BiEdit, BiTrashAlt } from "react-icons/bi"
 import { TbZoomMoney } from "react-icons/tb"
-
 import { useQuery } from "@tanstack/react-query"
-
 import { getUsers } from "../../../../lib/helper"
 import Image from "next/image"
-import Loading from "../loading"
+import moment from "moment"
 
 interface IUserData {
   id?: string
@@ -25,28 +22,28 @@ interface IUserData {
 
 export default function Table() {
   const { isLoading, error, data } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["usersData"],
     queryFn: getUsers,
   })
 
   if (error) {
     toast("An error has occurred: " + error)
   }
-  if (isLoading) return <div>Carregando usuários...</div>
-
-  return (
-    <main>
-      <table className='min-w-full table-fixed bg-gray-200 border-separate '>
-        <thead className='text-xs font-semibold uppercase text-gray-400 bg-gray-50'>
+  if (isLoading) {
+    return <div>Carregando usuários...</div>
+  } else {
+    return (
+      <table className='min-w-full table-fixed rounded px-8 py-6 mb-4 border-separate shadow-lg'>
+        <thead className='text-xs font-semibold uppercase text-gray-400'>
           <tr className='bg-gray-800'>
-            <th className='px-16 p-2  text-left'>
-              <span className='text-left text-gray-200'>Name</span>
+            <th className='px-16 p-2'>
+              <span className='font-semibold'>Name</span>
             </th>
             <th className='p-2 '>
-              <div className='font-semibold text-left'>Email</div>
+              <div className='font-semibold'>Email</div>
             </th>
             <th className='p-2 '>
-              <div className='font-semibold text-left'>Status</div>
+              <div className='font-semibold'>Status</div>
             </th>
             <th className='p-2 '>
               <div className='font-semibold text-center'>Último Acesso</div>
@@ -60,7 +57,7 @@ export default function Table() {
         <tbody className='bg-gray-200 text-sm divide-y divide-gray-100'>
           {data?.map((user: IUserData) => (
             <tr key={user.id} className='bg-gray-50 text-center'>
-              <td className='px-16 py-2 flex flex-row items-center gap-4'>
+              <td className='px-2 py-1 flex items-center gap-4 bg-rose-500'>
                 <Image
                   className='h-8 w-8 rounded-full object-cover'
                   src='https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg'
@@ -68,12 +65,12 @@ export default function Table() {
                   height='32'
                   alt='Alex Shatov'
                 />
-                <span className='font-medium text-gray-800'>{user.name}</span>
+                <span className='  text-gray-800'>{user.name}</span>
               </td>
-              <td className='px-16 py-2 text-left bg-slate-300 '>
+              <td className='px-16 bg-slate-300 '>
                 <span className=''>{user.email}</span>
               </td>
-              <td className='px-16 py-2 '>
+              <td className='px-16 '>
                 {user.status == "ATIVO" ? (
                   <span className='text-left font-medium text-white bg-green-500 px-5 py-1 rounded-full cursor-pointer'>
                     ativo
@@ -84,10 +81,12 @@ export default function Table() {
                   </span>
                 )}
               </td>
-              <td className='px-16 py-2 '>
-                <span className='text-lg text-center'>{user.updatedAt}</span>
+              <td className='px-16 '>
+                <span className='text-center'>
+                  {moment(user.updatedAt).format("DD/MM/YYYY hh:mm")}
+                </span>
               </td>
-              <td className='px-16 py-2'>
+              <td className='px-16'>
                 <div className='flex justify-around gap-5'>
                   <button>
                     <TbZoomMoney
@@ -108,6 +107,6 @@ export default function Table() {
           ))}
         </tbody>
       </table>
-    </main>
-  )
+    )
+  }
 }

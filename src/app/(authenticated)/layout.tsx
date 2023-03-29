@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <html lang='pt-BR'>
+      <html lang='PT-BR'>
         <body className={styles.container}>
           <Header />
           {children}
