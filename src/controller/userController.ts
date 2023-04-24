@@ -2,7 +2,6 @@
 
 import type { NextApiRequest, NextApiResponse } from "next"
 import { PrismaClient } from "@prisma/client"
-import user from "@/pages/api/user"
 
 const prisma = new PrismaClient()
 
@@ -83,6 +82,7 @@ export async function findUserByEmail(
   res: NextApiResponse
 ) {
   const { email } = req.query
+  console.log(email)
 
   try {
     const user = await prisma.user.findUnique({

@@ -4,8 +4,8 @@ import Link from "next/link"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export default function Community() {
+export default function Instrument() {
   return (
-    <div className='text-orange-400 bg-gray-900 min-h-screen'>Comunidade!</div>
+    <div className='text-orange-400 bg-gray-900 min-h-screen'>Instrumentos!</div>
   )
 }

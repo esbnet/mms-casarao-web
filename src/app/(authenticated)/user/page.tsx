@@ -63,7 +63,7 @@ export default function User() {
   const handleChange = () => {}
  */
   return (
-    <main className=''>
+    <main className=' min-h-screen'>
       <h1 className='text-xl md:text-5xl font-bold py-10 flex items-center'>
         <div className='mr-4 p-4 rounded-full bg-slate-400'>
           <FaUserCog size={54} />

@@ -1,7 +1,7 @@
 export default function Head() {
   return (
     <>
-      <title>mms - casarão - usuários</title>
+      <title>mms - casarão - usuários - head</title>
     </>
   )
 }
