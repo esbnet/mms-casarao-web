@@ -1,70 +1,97 @@
 "use client"
+import Image from "next/image"
 
-import { useRouter } from "next/navigation"
+import { motion } from "framer-motion"
+
+import LogoImg from "../../../assets/images/logo.png"
+import { Footer } from "@/components/footer/page"
+
+import Tilt from "react-parallax-tilt"
 
 export default function Login() {
-  const router = useRouter()
-
   return (
-    <div className=' mt-48  flex flex-col justify-center items-center'>
-      <h1 className=' font-semibold text-2xl my-4'>Login</h1>
-      <div className='w-full max-w-xs'>
-        <form
-          className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'
-          onSubmit={(e) => {
-            router.push("/")
-            e.preventDefault()
-          }}
-        >
-          <div className='mb-4'>
-            <label
-              className='block text-gray-700 text-sm font-bold mb-2'
-              htmlFor='username'
+    <div className='flex flex-col justify-center items-center w-full h-1/2'>
+      <div className='flex justify-around w-full h-full'>
+        <div className='flex flex-col justify-center items-center w-9/12 flex-wrap'>
+          <Tilt>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              whileHover={{
+                rotate: [0, 5, -5, 5, 0],
+                transition: { duration: 1, repeat: Infinity },
+              }}
+              className='m-8'
             >
-              Email
-            </label>
-            <input
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              id='username'
-              type='text'
-              placeholder='Email'
-            />
+              <Image
+                src={LogoImg}
+                alt='Logo'
+                width={320}
+                height={320}
+                className='rounded-full'
+              />
+            </motion.div>
+          </Tilt>
+        </div>
+
+        <div className=' bg-gray-900 relative overflow-hidden flex justify-center items-center bg-opacity-10 rounded-2xl'>
+          <div className=' h-128 w-96 bg-yellow-200 bg-opacity-10 rounded-2xl shadow-5xl relative z-2 border border-opacity-30 border-r-0 border-b-0 backdrop-filter backdrop-blur-sm'>
+            <form className='h-full flex flex-col justify-evenly items-center'>
+              <div className='text-white font-poppins text-2xl tracking-widest'>
+                Acessar o Casarão
+              </div>
+              <input type='text' placeholder='email' className='input-text' />
+              <input
+                type='password'
+                placeholder='senha'
+                className='input-text'
+              />
+
+              <div className='mt-16 grid space-y-4'>
+                <button
+                  className='group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100'
+                >
+                  <div className='relative flex items-center space-x-4 justify-center'>
+                    <img
+                      src='https://tailus.io/sources/blocks/social/preview/images/google.svg'
+                      className='absolute left-0 w-5'
+                      alt='google logo'
+                    />
+                    <span className='block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base'>
+                      Continue with Google
+                    </span>
+                  </div>
+                </button>
+                <button
+                  className='group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+                                     hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100'
+                >
+                  <div className='relative flex items-center space-x-4 justify-center'>
+                    <img
+                      src='https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg'
+                      className='absolute left-0 w-5'
+                      alt='Facebook logo'
+                    />
+                    <span className='block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base'>
+                      Continue with Facebook
+                    </span>
+                  </div>
+                </button>
+              </div>
+
+              <input
+                type='Submit'
+                className='cursor-pointer font-poppins rounded-full px-5 py-1 bg-white bg-opacity-50 hover:bg-white hover:bg-opacity-80 '
+              />
+            </form>
           </div>
-          <div className='mb-6'>
-            <label
-              className='block text-gray-700 text-sm font-bold mb-2'
-              htmlFor='password'
-            >
-              Senha
-            </label>
-            <input
-              className='shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
-              id='password'
-              type='password'
-              placeholder='Senha'
-            />
-            <p className='text-red-500 text-xs italic'>
-              Por favor, digite sua senha.
-            </p>
-          </div>
-          <div className='flex items-center justify-between'>
-            <button
-              className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-              type='submit'
-            >
-              Entrar
-            </button>
-            <a
-              className='inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'
-              href='#'
-            >
-              Esqueceru a Senha?
-            </a>
-          </div>
-        </form>
-        <p className='text-center text-gray-500 text-xs mb-4'>
-          &copy;2023 Quarkscode All rights reserved.
-        </p>
+        </div>
+      </div>
+
+      <div className=' fixed bottom-0 left-0 w-full'>
+        <Footer />
       </div>
     </div>
   )

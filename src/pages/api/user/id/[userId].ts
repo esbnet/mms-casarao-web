@@ -1,4 +1,4 @@
-import { findUserById, deleteUser, updateUser } from "@/controller/userController"
+import { findUserById, deleteUser, updateUser } from "@/pages/api/controller/userController"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {

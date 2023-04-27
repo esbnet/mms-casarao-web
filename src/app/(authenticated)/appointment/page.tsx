@@ -4,7 +4,7 @@ import Link from "next/link"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export default function Agenda() {
+export default function Appointment() {
   return (
     <section>
       <div className='text-orange-400 bg-gray-900 min-h-screen'>Agenda!</div>

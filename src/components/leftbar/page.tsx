@@ -18,7 +18,7 @@ export const metadata = {
 
 export function Leftbar() {
   const menuItem = [
-    { icon: <CiUser/>, path: "/user", item: "Usuário" },
+    { icon: <CiUser />, path: "/user", item: "Usuário" },
     { icon: <GiDoorHandle />, path: "/environment", item: "Ambiente" },
     { icon: <FaTheaterMasks />, path: "/artist", item: "Artista" },
     { icon: <GiDrumKit />, path: "/band", item: "Banda" },
@@ -29,19 +29,23 @@ export function Leftbar() {
   ]
 
   return (
-    <div className='bg-gray-900'>
-      <div className='flex flex-col w-full h-20 justify-center items-center'>
+    <div className='w-[14rem] bg-gray-900 fixed h-screen'>
+      <div className='flex flex-col justify-center p-2 items-center bg-yellow-300'>
         <Logo />
       </div>
-      <div className='text-yellow-200  min-h-screen'>
+      <div className='text-yellow-300  min-h-screen'>
         <ul>
           {menuItem.map((item, i) => {
             return (
-              <div  key={i} className="hover:bg-yellow-500/60 hover:text-white">
-              <li className='flex gap-2 p-2 items-center'>
-                <span className=" text-4xl rounded p-2 bg-yellow-400">{item.icon}</span> 
-                <Link href={item.path}>{item.item}</Link>
-              </li>
+              <div key={i} className='hover:bg-yellow-500/60 hover:text-white'>
+                <Link href={item.path}>
+                  <li className='flex gap-2 p-2 items-center'>
+                    <span className=' text-4xl rounded p-2 bg-gray-400 bg-opacity-20 backdrop-blur-lg drop-shadow-lg'>
+                      {item.icon}
+                    </span>
+                    {item.item}
+                  </li>
+                </Link>
               </div>
             )
           })}

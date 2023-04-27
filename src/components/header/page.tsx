@@ -1,6 +1,5 @@
 // "use client"
 
-import { Logo } from "../logo/page"
 import { Navbar } from "../navbar/page"
 import Profile from "../profile/page"
 import Settings from "../settings/page"
@@ -14,7 +13,7 @@ export const metadata = {
 
 export function Header() {
   return (
-    <div className='flex justify-between bg-yellow-500/60 shadow-slate-700 shadow-sm p-2'>
+    <div className='flex w-full justify-between bg-yellow-300 shadow-gray-700/90 shadow-md p-2'>
       <div className='flex'>
         <Navbar />
       </div>
@@ -22,7 +21,7 @@ export function Header() {
         <Profile name='Edmilson' age={25} />
         <Settings />
       </div>
-      <Toaster/>
+      {/* <Toaster/> */}
     </div>
   )
 }

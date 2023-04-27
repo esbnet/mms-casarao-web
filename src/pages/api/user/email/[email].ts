@@ -1,4 +1,4 @@
-import { findUserByEmail } from "@/controller/userController"
+import { findUserByEmail } from "@/pages/api/controller/userController"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {

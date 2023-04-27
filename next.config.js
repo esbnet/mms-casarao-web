@@ -7,7 +7,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "raw.githubusercontent.com"
+        hostname: "tecdn.b-cdn.net",
+        port: "",
+        pathname: "/img/Photos/Slides/**",
+      },
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
       },
     ],
   },

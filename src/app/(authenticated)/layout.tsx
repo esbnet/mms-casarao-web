@@ -1,7 +1,6 @@
 "use client"
 
 import "../../styles/globals.css"
-import styles from "../../styles/Home.module.css"
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
@@ -19,17 +18,17 @@ export default function RootLayout({
   return (
     <QueryClientProvider client={queryClient}>
       <html lang='PT-BR'>
-        <body className={styles.container}>
-          <div className="flex">
+        <body className=" bg-gray-900 text-stone-50">
+          <div className='flex'>
             <div>
               <Leftbar />
             </div>
-            <div>
+            <div className='w-full ml-[14rem] min-h-screen '>
               <Header />
-              {children}
-              <Footer />
+              <div className="px-4">{children}</div>
             </div>
           </div>
+          <Footer />
         </body>
       </html>
     </QueryClientProvider>

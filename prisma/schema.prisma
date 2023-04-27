@@ -7,10 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model alugueis {
+model Alugueis {
   id               String                    @id @default(uuid())
   funcionario_id   String
-  cliente_id       String
+  artista_id       String
   equipamento_id   String
   data_retirada    DateTime?
   data_devolucao   DateTime?
@@ -18,16 +18,20 @@ model alugueis {
   nota             String
   status           alugueis_status           @default(RETIRADA)
   status_pagamento alugueis_status_pagamento @default(PENDENTE)
+
+  funcionario Funcionarios @relation(fields: [funcionario_id], references: [id])
+  artista     Artistas     @relation(fields: [artista_id], references: [id])
+  equipamento Equipamentos @relation(fields: [equipamento_id], references: [id])
 }
 
-model ambientes {
+model Ambientes {
   id     String           @id @default(uuid())
   nome   String
   status ambientes_status @default(ATIVO)
 }
 
-model artistas {
-  id             String          @id @default(uuid())
+model Artistas {
+  id             String           @id @default(uuid())
   nome           String
   data_nacimento DateTime
   email          String
@@ -35,13 +39,20 @@ model artistas {
   whatsapp       Boolean
   bio            String
   foto           String
-  status         artistas_status @default(ATIVO)
-  createAt       DateTime        @default(now())
-  updateAt       DateTime?
+  status         artistas_status  @default(ATIVO)
+  createAt       DateTime         @default(now())
+  updateAt       DateTime         @updatedAt
   deletedAt      DateTime?
+  Agendamentos   Agendamentos[]
+  Alugueis       Alugueis[]
+  Banda_artistas Banda_artistas[]
+  Bandas         Bandas[]
+  Emprestimos    Emprestimos[]
+  Eventos        Eventos[]
+  Musicas        Musicas[]
 }
 
-model banda_artistas {
+model Banda_artistas {
   id             String                @id @default(uuid())
   banda_id       String
   artista_id     String
@@ -50,53 +61,82 @@ model banda_artistas {
   nota           String
   status         banda_artistas_status @default(ATIVO)
   createAt       DateTime              @default(now())
-  updateAt       DateTime
-  terminateAt    DateTime
+  updateAt       DateTime              @updatedAt
+  terminateAt    DateTime?
+
+  banda       Bandas       @relation(fields: [banda_id], references: [id])
+  artista     Artistas     @relation(fields: [artista_id], references: [id])
+  instrumento Instrumentos @relation(fields: [instrumento_id], references: [id])
 }
 
-model bandas {
-  id         String        @id @default(uuid())
-  nome       String
-  bio        String
-  logo       String
-  foto       String
-  contato_id String
-  status     bandas_status @default(ATIVA)
-  createAt   DateTime      @default(now())
-  updateAt   DateTime
-  deletedAt  DateTime
+model Bandas {
+  id             String           @id @default(uuid())
+  nome           String
+  bio            String
+  logo           String
+  foto           String
+  contato_id     String
+  status         bandas_status    @default(ATIVA)
+  createAt       DateTime         @default(now())
+  updateAt       DateTime         @updatedAt
+  deletedAt      DateTime?
+  Banda_artistas Banda_artistas[]
+
+  contato Artistas @relation(fields: [contato_id], references: [id])
 }
 
-model emprestimos {
+model Emprestimos {
   id             String             @id @default(uuid())
   funcionario_id String
-  cliente_id     String
-  data           DateTime
-  data_devolucao DateTime
+  artista_id     String
+  data           DateTime           @default(now())
+  data_devolucao DateTime?
   duracao        String
   valor          Float
   status         emprestimos_status @default(RETIRADA)
   nota           String
+
+  funcionario Funcionarios @relation(fields: [funcionario_id], references: [id])
+  artista     Artistas     @relation(fields: [artista_id], references: [id])
 }
 
-model ensaio {
+model Agendamentos {
+  id             String        @id @default(uuid())
+  artista_id     String
+  funcionario_id String
+  date_start     DateTime
+  date_end       DateTime
+  nota           String
+  status         ensaio_status @default(AGENDADO)
+
+  artista     Artistas     @relation(fields: [artista_id], references: [id])
+  funcionario Funcionarios @relation(fields: [funcionario_id], references: [id])
+  Pagamentos  Pagamentos[]
+
+  @@index([artista_id], map: "agendamentos_artista_id_fkey")
+  @@index([funcionario_id], map: "agendamentos_equipamentos_funcionario_id_fkey")
+}
+
+model Pagamentos {
   id               String                  @id @default(uuid())
   agendamento_id   String
-  date_start       DateTime
-  date_end         DateTime
-  pagamento_id     String
+  date             DateTime
   nota             String
-  status           ensaio_status           @default(AGENDADO)
-  status_pagamento ensaio_status_pagamento @default(PENDENTE)
+  status_pagamento ensaio_status_pagamento @default(CRIADO)
+
+  agendamento Agendamentos @relation(fields: [agendamento_id], references: [id])
+
+  @@index([agendamento_id], map: "agendamentos_agendamento_id_fkey")
 }
 
-model equipamento_categorias {
-  id   String @id @default(uuid())
-  nome String
-  nota String
+model Equipamento_categorias {
+  id           String         @id @default(uuid())
+  nome         String
+  nota         String
+  Equipamentos Equipamentos[]
 }
 
-model equipamentos {
+model Equipamentos {
   id                        String              @id @default(uuid())
   nome                      String
   data_compra               DateTime?
@@ -107,79 +147,101 @@ model equipamentos {
   equipamento_categorias_id String
   status                    equipamentos_status @default(DISPONIVEL)
   createAt                  DateTime            @default(now())
-  updateAt                  DateTime            @default(now())
-  deletedAt                 DateTime
+  updateAt                  DateTime            @updatedAt
+  deletedAt                 DateTime?
+  Alugueis                  Alugueis[]
+
+  equipamento_categorias Equipamento_categorias @relation(fields: [equipamento_categorias_id], references: [id])
 
   @@index([equipamento_categorias_id], map: "equipamentos_equipamento_categorias_id_fkey")
 }
 
-model eventos {
+model Eventos {
   id               String                   @id @default(uuid())
   nome             String
   descricao        String
   funcionario_id   String
-  cliente_id       String
+  artista_id       String
   data             DateTime
   duracao          String
   valor            Float
   status           eventos_status           @default(PRODUCAO)
   status_pagamento eventos_status_pagamento @default(PENDENTE)
   nota             String
+
+  funcionario Funcionarios @relation(fields: [funcionario_id], references: [id])
+  artista     Artistas     @relation(fields: [artista_id], references: [id])
 }
 
-model funcionarios {
+model Funcionarios {
   id             String              @id @default(uuid())
   nome           String
   apelido        String
   data_nacimento DateTime
-  funcoes_id     String
+  papel_id       String
   status         funcionarios_status @default(ATIVO)
   createAt       DateTime            @default(now())
-  updateAt       DateTime
-  deletedAt      DateTime
+  updateAt       DateTime            @updatedAt
+  deletedAt      DateTime?
+  Agendamentos   Agendamentos[]
+  Alugueis       Alugueis[]
+  Emprestimos    Emprestimos[]
+  Eventos        Eventos[]
 
-  @@index([funcoes_id], map: "funcionarios_funcoes_id_fkey")
+  papel Papeis @relation(fields: [papel_id], references: [id])
+
+  @@index([papel_id], map: "funcionarios_papel_id_fkey")
 }
 
-model funcoes {
-  id   String @id @default(uuid())
-  nome String
-  nota String
-}
-
-model instrumento_categorias {
-  id   String @id @default(uuid())
-  nome String
-  nota String
-}
-
-model instrumentos {
-  id           String              @id @default(uuid())
+model Papeis {
+  id           String         @id @default(uuid())
   nome         String
   nota         String
-  categoria_id String
-  status       instrumentos_status @default(ATIVO)
+  Funcionarios Funcionarios[]
 }
 
-model messages {
+model Instrumento_categorias {
+  id           String         @id @default(uuid())
+  nome         String
+  nota         String
+  Instrumentos Instrumentos[]
+}
+
+model Instrumentos {
+  id             String              @id @default(uuid())
+  nome           String
+  nota           String
+  categoria_id   String
+  status         instrumentos_status @default(ATIVO)
+  Banda_artistas Banda_artistas[]
+
+  categoria Instrumento_categorias @relation(fields: [categoria_id], references: [id])
+}
+
+model Messages {
   id         String   @id @default(uuid())
   text       String
   created_at DateTime @default(now())
+  updateAt   DateTime @updatedAt
   user_id    String
+
+  user User @relation(fields: [user_id], references: [id])
 
   @@index([user_id], map: "messages_user_id_fkey")
 }
 
-model musicas {
+model Musicas {
   id       String   @id @default(uuid())
   nome     String
-  autor    String
+  autor_id String
   nota     String
   createAt DateTime @default(now())
-  updateAt DateTime
+  updateAt DateTime @updatedAt
+
+  autor Artistas @relation(fields: [autor_id], references: [id])
 }
 
-model user {
+model User {
   id         String      @id @default(cuid())
   name       String
   email      String      @unique(map: "User_email_key")
@@ -188,6 +250,9 @@ model user {
   password   String
   createdAt  DateTime    @default(now())
   updatedAt  DateTime?   @updatedAt
+  deletedAt  DateTime?
+
+  Messages Messages[]
 }
 
 enum user_status {
@@ -246,6 +311,7 @@ enum ensaio_status {
 }
 
 enum ensaio_status_pagamento {
+  CRIADO
   PENDENTE
   PAGO
   CANCELADO
