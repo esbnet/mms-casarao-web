@@ -21,7 +21,7 @@ export function Header() {
         <Profile name='Edmilson' age={25} />
         <Settings />
       </div>
-      {/* <Toaster/> */}
+      <Toaster/>
     </div>
   )
 }

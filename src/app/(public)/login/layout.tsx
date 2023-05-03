@@ -1,5 +1,3 @@
-import { Header } from "@/components/header/page"
-
 export default function LoginLayout({
   children,
 }: {
@@ -9,7 +7,6 @@ export default function LoginLayout({
     <html lang='PT-BR'>
       <body className='-mt-24 bg-gray-900 text-stone-50 bg-hendrix bg-no-repeat bg-center bg-contain'>
         <div className='flex justify-center items-center h-screen'>
-          <Header/>
           {children}
         </div>
       </body>

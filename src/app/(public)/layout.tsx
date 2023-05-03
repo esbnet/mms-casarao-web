@@ -1,4 +1,3 @@
-import { Header } from "@/components/header/page"
 import "../../styles/globals.css"
 
 export const metadata = {
@@ -16,8 +15,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang='pt-BR'>
-      <body>
-        <div>
+      <body className="roboto.className">
+        <div >
           {children}
         </div>
       </body>
