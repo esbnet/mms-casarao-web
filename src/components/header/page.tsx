@@ -13,15 +13,13 @@ export const metadata = {
 
 export function Header() {
   return (
-    <div className='flex w-full justify-between bg-yellow-300 shadow-gray-700/90 shadow-md p-2'>
-      <div className='flex'>
-        <Navbar />
-      </div>
+    <div className='flex w-full justify-between bg-yellow-300 shadow-gray-800/90 shadow-md p-2'>
+      <Navbar />
       <div className='flex gap-2'>
         <Profile name='Edmilson' age={25} />
         <Settings />
       </div>
-      <Toaster/>
+      <Toaster />
     </div>
   )
 }

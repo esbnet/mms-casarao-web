@@ -1,192 +1,112 @@
-import { useEffect, useState } from "react"
-import { useRef } from "react"
-import SubMenu from "./SubMenu"
-import { motion } from "framer-motion"
-
 // * React icons
 import { IoIosArrowBack } from "react-icons/io"
 import { SlSettings } from "react-icons/sl"
-import { AiOutlineAppstore } from "react-icons/ai"
-import { BsPerson } from "react-icons/bs"
-import { HiOutlineDatabase } from "react-icons/hi"
-import { TbReportAnalytics } from "react-icons/tb"
-import { RiBuilding3Line } from "react-icons/ri"
-import { useMediaQuery } from "react-responsive"
-import { MdMenu } from "react-icons/md"
-import { NavLink, useLocation, useRoutes } from "react-router-dom"
+import { AiFillSound } from "react-icons/ai"
+import { BsPerson, BsDoorOpen } from "react-icons/bs"
+import { HiOutlineUserGroup } from "react-icons/hi"
+import { GiExitDoor, GiHamburgerMenu } from "react-icons/gi"
+import { FaTheaterMasks } from "react-icons/fa"
+import { MdOutlineSettings } from "react-icons/md"
 
-const Sidebar = () => {
-  let isTabletMid = useMediaQuery({ query: "(max-width: 768px)" })
-  const [open, setOpen] = useState<boolean>(isTabletMid ? false : true)
-  const sidebarRef = useRef()
-  const { pathname } = useLocation()
+import { Disclosure } from "@headlessui/react"
+import Link from "next/link"
 
-  useEffect(() => {
-    if (isTabletMid) {
-      setOpen(false)
-    } else {
-      setOpen(true)
-    }
-  }, [isTabletMid])
-
-  useEffect(() => {
-    isTabletMid && setOpen(false)
-  }, [pathname])
-
-  const Nav_animation = isTabletMid
-    ? {
-        open: {
-          x: 0,
-          width: "16rem",
-          transition: {
-            damping: 40,
-          },
-        },
-        closed: {
-          x: -250,
-          width: 0,
-          transition: {
-            damping: 40,
-            delay: 0.15,
-          },
-        },
-      }
-    : {
-        open: {
-          width: "16rem",
-          transition: {
-            damping: 40,
-          },
-        },
-        closed: {
-          width: "4rem",
-          transition: {
-            damping: 40,
-          },
-        },
-      }
-
-  const subMenusList = [
-    {
-      name: "build",
-      icon: RiBuilding3Line,
-      menus: ["auth", "app settings", "stroage", "hosting"],
-    },
-    {
-      name: "analytics",
-      icon: TbReportAnalytics,
-      menus: ["dashboard", "realtime", "events"],
-    },
-  ]
-
+export default function Sidear() {
   return (
-    <div>
-      <div
-        onClick={() => setOpen(false)}
-        className={`md:hidden fixed inset-0 max-h-screen z-[998] bg-black/50 ${
-          open ? "block" : "hidden"
-        } `}
-      ></div>
-      <motion.div
-        // ref={sidebarRef}
-        variants={Nav_animation}
-        initial={{ x: isTabletMid ? -250 : 0 }}
-        animate={open ? "open" : "closed"}
-        className=' bg-white text-gray shadow-xl z-[999] max-w-[16rem]  w-[16rem] 
-            overflow-hidden md:relative fixed
-         h-screen '
-      >
-        <div className='flex items-center gap-2.5 font-medium border-b py-3 border-slate-300  mx-3'>
-          <img
-            src='https://img.icons8.com/color/512/firebase.png'
-            width={45}
-            alt=''
-          />
-          <span className='text-xl whitespace-pre'>Fireball</span>
-        </div>
+    <div className='flex'>
+      <Disclosure as='nav'>
+        <div className='p-6 w-1/2 h-screen bg-white z-20 top-0 -left-96 lg:w-60 lg:left-0 peer-focus:left-0 peer:transition ease-out delay-150 duration-200'>
+          <Disclosure.Button className='absolute top-4 right-4 inline-flex items-center justify-center rounded-md p-2 text-gray-900 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-white group hover:bg-white'>
+            <GiHamburgerMenu
+              className='block md:hidden h-6 w-6'
+              aria-hidden='true'
+            />
+          </Disclosure.Button>
 
-        <div className='flex flex-col  h-full'>
-          <ul className='whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1  font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100   md:h-[68%] h-[70%]'>
-            <li>
-              <NavLink to={"/"} className='link'>
-                <AiOutlineAppstore size={23} className='min-w-max' />
-                All Apps
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={"/authentication"} className='link'>
-                <BsPerson size={23} className='min-w-max' />
-                Authentication
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={"/stroage"} className='link'>
-                <HiOutlineDatabase size={23} className='min-w-max' />
-                Stroage
-              </NavLink>
-            </li>
+          <div className='flex flex-col justify-start items-center h-full'>
+            <h1 className='text-base text-center cursor-pointer font-bold text-blue-900 border-b border-gray-100 pb-4 w-full'>
+              Casarão Estúdios
+            </h1>
 
-            {(open || isTabletMid) && (
-              <div className='border-y py-5 border-slate-300 '>
-                <small className='pl-3 text-slate-500 inline-block mb-2'>
-                  Product categories
-                </small>
-                {subMenusList?.map((menu) => (
-                  <div key={menu.name} className='flex flex-col gap-1'>
-                    <SubMenu data={menu} />
-                  </div>
-                ))}
-              </div>
-            )}
-            <li>
-              <NavLink to={"/settings"} className='link'>
-                <SlSettings size={23} className='min-w-max' />
-                Settings
-              </NavLink>
-            </li>
-          </ul>
-          {open && (
-            <div className='flex-1 text-sm z-50  max-h-48 my-auto  whitespace-pre   w-full  font-medium  '>
-              <div className='flex border-y border-slate-300 p-4 items-center justify-between'>
-                <div>
-                  <p>Spark</p>
-                  <small>No-cost $0/month</small>
+            {/* section add item */}
+            <div className='my-4 border-b border-gray-200 pb-4 w-full'>
+              <Link href={"/user"}>
+                <div className='flex mb-2 justify-start items-center gap-4 px-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                  <BsPerson className='text-2xl text-gray-600 group-hover:text-white' />
+                  <h3 className='text-base text-gray-800 group-hover:text-white font-semibold'>
+                    Usuários
+                  </h3>
                 </div>
-                <p className='text-teal-500 py-1.5 px-3 text-xs bg-teal-50 rounded-xl'>
-                  Upgrade
-                </p>
+              </Link>
+
+              <Link href={"/role"}>
+                <div className='flex mb-2 justify-start items-center gap-4 px-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                  <SlSettings className='text-2xl text-gray-600 group-hover:text-white' />
+                  <h3 className='text-base text-gray-800 group-hover:text-white font-semibold'>
+                    Papéis
+                  </h3>
+                </div>
+              </Link>
+
+              <Link href={"/artist"}>
+                <div className='flex mb-2 justify-start items-center gap-4 px-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                  <FaTheaterMasks className='text-2xl text-gray-600 group-hover:text-white' />
+                  <h3 className='text-base text-gray-800 group-hover:text-white font-semibold'>
+                    Artistas
+                  </h3>
+                </div>
+              </Link>
+
+              <Link href={"/band"}>
+                <div className='flex mb-2 justify-start items-center gap-4 px-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                  <HiOutlineUserGroup className='text-2xl text-gray-600 group-hover:text-white' />
+                  <h3 className='text-base text-gray-800 group-hover:text-white font-semibold'>
+                    Bandas
+                  </h3>
+                </div>
+              </Link>
+
+              <Link href={"/environment"}>
+                <div className='flex mb-2 justify-start items-center gap-4 px-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                  <BsDoorOpen className='text-2xl text-gray-600 group-hover:text-white' />
+                  <h3 className='text-base text-gray-800 group-hover:text-white font-semibold'>
+                    Ambientes
+                  </h3>
+                </div>
+              </Link>
+
+              <Link href={"/equipament"}>
+                <div className='flex mb-2 justify-start items-center gap-4 px-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                  <AiFillSound className='text-2xl text-gray-600 group-hover:text-white' />
+                  <h3 className='text-base text-gray-800 group-hover:text-white font-semibold'>
+                    Equipamentos
+                  </h3>
+                </div>
+              </Link>
+            </div>
+
+            {/* section settings */}
+            <div className='my-4 border-b border-gray-200 pb-4 w-full'>
+              <div className='flex mb-2 justify-start items-center gap-4 px-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                <MdOutlineSettings className='text-2xl text-gray-600 group-hover:text-white' />
+                <h3 className='text-base text-gray-800 group-hover:text-white font-semibold'>
+                  Configurações
+                </h3>
               </div>
             </div>
-          )}
+
+            {/* section logout */}
+            <div className='p-2 fixed bottom-0 mb-4 '>
+              <div className='flex mb-2 justify-start items-center gap-4 px-5 border border-gray-200 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto  w-full'>
+                <GiExitDoor className='text-2xl text-gray-600 group-hover:text-white' />
+                <h3 className='text-base text-gray-800 group-hover:text-white font-semibold'>
+                  Sair
+                </h3>
+              </div>
+            </div>
+          </div>
         </div>
-        <motion.div
-          onClick={() => {
-            setOpen(!open)
-          }}
-          animate={
-            open
-              ? {
-                  x: 0,
-                  y: 0,
-                  rotate: 0,
-                }
-              : {
-                  x: -10,
-                  y: -200,
-                  rotate: 180,
-                }
-          }
-          transition={{ duration: 0 }}
-          className='absolute w-fit h-fit md:block z-50 hidden right-2 bottom-3 cursor-pointer'
-        >
-          <IoIosArrowBack size={25} />
-        </motion.div>
-      </motion.div>
-      <div className='m-3 md:hidden  ' onClick={() => setOpen(true)}>
-        <MdMenu size={25} />
-      </div>
+      </Disclosure>
     </div>
   )
 }
-
-export default Sidebar

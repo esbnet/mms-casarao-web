@@ -31,6 +31,7 @@ export default function Home() {
           className='rounded-full m-8'
         />
       </motion.div>
+      
       <div className=' grid grid-cols-4 gap-4 flex-wrap'>
         <Link href={"/appointment"} className='hover:text-2xl'>
           <motion.div

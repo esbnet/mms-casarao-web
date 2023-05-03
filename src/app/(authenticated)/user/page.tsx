@@ -68,7 +68,7 @@ export default function User() {
         <div className='mr-4 p-4 rounded-full bg-slate-400'>
           <FaUserCog size={54} />
         </div>
-        <div>Usuários</div>
+        <div>Usuários</div> 
       </h1>
 
       <div className='mx-auto flex justify-between py-5 border-b mb-4'>

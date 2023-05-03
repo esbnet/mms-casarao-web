@@ -25,24 +25,16 @@ export default function RootLayout({
 }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <html lang='PT-BR'>
+      <html lang='pt-BR'>
         <body className=' bg-gray-900 text-stone-50'>
-          <div className='flex'>
+          <div className='flex flex-row'>
             <Sidebar />
-            <div className='min-h-screen'>
+            <div className='flex flex-col bg-yellow-200 w-full'>
               <Header />
               <div className='px-4'>{children}</div>
             </div>
           </div>
           <Footer />
-          {/* <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/role' element={<Role />} />
-            <Route path='/user' element={<User />} />
-            <Route path='/settings' element={<Settings />} />
-            <Route path='/band' element={<Band />} />
-            <Route path='/artist' element={<Artist />} />
-          </Routes> */}
         </body>
       </html>
     </QueryClientProvider>
