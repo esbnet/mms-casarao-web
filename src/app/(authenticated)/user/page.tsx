@@ -9,6 +9,7 @@ import { AiOutlineUserAdd } from "react-icons/ai"
 import Form from "./form/page"
 import Table from "./table/page"
 
+
 export default function User() {
   const [visible, setVisible] = useState(false)
 
@@ -77,7 +78,7 @@ export default function User() {
             onClick={handler}
             className=' flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-800'
           >
-            Add Usuário
+            Novo suário
             <span className='px-1'>
               <AiOutlineUserAdd size={23} />
             </span>

@@ -1,8 +1,10 @@
 import Image from "next/image"
-import { Inter } from "@next/font/google"
 import Link from "next/link"
 
-const inter = Inter({ subsets: ["latin"] })
+export const metadata = {
+  title: 'Agendamentos',
+  description: 'Página de agendamentos de ensaios no Casarão Estúdios',
+}
 
 export default function Appointment() {
   return (
