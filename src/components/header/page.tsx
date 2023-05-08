@@ -1,7 +1,11 @@
-// "use client"
+"use client"
+
+import { signIn, signOut, useSession } from "next-auth/react"
 
 import { Navbar } from "../navbar/page"
 import Profile from "../profile/page"
+import Logout from "../logout/page"
+import Login from "../login/page"
 import Settings from "../settings/page"
 
 import { Toaster } from "react-hot-toast"
@@ -12,12 +16,23 @@ export const metadata = {
 }
 
 export function Header() {
+  const { data: session } = useSession()
+
   return (
     <div className='flex w-full justify-between bg-yellow-300 shadow-gray-800/90 shadow-md p-2'>
       <Navbar />
       <div className='flex gap-2'>
-        <Profile name='Edmilson' age={25} />
-        <Settings />
+        {session?.user ? (
+          <button  onClick={()=> signIn()}>
+            <Profile name='Edmilson' age={25} />
+            <Settings />
+            <Logout name='Edmilson' age={25} />
+          </button>
+        ) : (
+          <button onClick={()=> signIn()}>
+            <Login/>
+          </button>
+        )}
       </div>
       <Toaster />
     </div>

@@ -1,4 +1,5 @@
-import "../../styles/globals.css"
+import { Header } from "@/components/header/page"
+import { Footer } from "@/components/footer/page"
 
 export const metadata = {
   title: {
@@ -14,10 +15,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='pt-BR'>
-      <body className="roboto.className">
-        <div >
-          {children}
+    <html>
+      <body>
+        <div className='flex flex-col justify-between w-full h-screen'>
+          <Header />
+          <div className='px-4'>{children}</div>
+          <Footer />
         </div>
       </body>
     </html>

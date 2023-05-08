@@ -1,6 +1,7 @@
 import "../styles/globals.css"
 
 import { Inter } from "@next/font/google"
+import Provider from "./Provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -14,7 +15,7 @@ export const metadata: metaProps = {
   title: {
     template: "Casarão | %s",
   },
-} 
+}
 
 export default function RootLayout({
   children,
@@ -22,9 +23,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='pt-BR'>
-      <body className=' bg-gray-900 text-stone-50'>
-        <div className='px-4'>{children}</div>
+    <html lang='pt-BR' className={inter.className}>
+      <body className=' bg-stone-50 text-gray-800'>
+        <Provider>
+          <div>{children}</div>
+        </Provider>
       </body>
     </html>
   )

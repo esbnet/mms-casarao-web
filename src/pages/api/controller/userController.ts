@@ -3,12 +3,15 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { PrismaClient } from "@prisma/client"
 
+import * as bcrypt from "bcrypt"
+
 const prisma = new PrismaClient()
 
 // POST: http://localhost:3000/api/user
 export async function postUser(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { name, email, password, avatar_url, status } = req.body
+    const { name, email, avatar_url, status } = req.body
+
     let user = await prisma.user.findUnique({ where: { email: email } })
     if (user !== null) {
       return res.status(200).json({
@@ -16,9 +19,18 @@ export async function postUser(req: NextApiRequest, res: NextApiResponse) {
       })
     }
     user = await prisma.user.create({
-      data: { email, name, password, avatar_url, status },
+      data: {
+        email,
+        name,
+        password: await bcrypt.hash(req.body.password, 10),
+        avatar_url,
+        status,
+      },
     })
-    return res.status(201).json(user)
+
+    const { password, ...result} = user
+
+    return res.status(201).json(result)
   } catch (error) {
     res.status(404).json({ error: "Falha na gravação do usuário." })
     console.log("Falha na gravação do usuário.", error)
@@ -82,7 +94,6 @@ export async function findUserByEmail(
   res: NextApiResponse
 ) {
   const { email } = req.query
-  console.log(email)
 
   try {
     const user = await prisma.user.findUnique({

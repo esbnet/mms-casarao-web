@@ -4,6 +4,8 @@ import { PrismaClient } from "@prisma/client"
 import {
   getUsers,
   postUser,
+  updateUser,
+  deleteUser,
 } from "../controller/userController"
 
 const prisma = new PrismaClient()
@@ -22,6 +24,17 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
     // add user
     case "POST":
       postUser(req, res)
+      break
+
+    // update user =============================================================
+    case "PUT":
+      updateUser(req, res)
+      break
+
+    // =========================================================================
+    // delete user
+    case "DELETE":
+      deleteUser(req, res)
       break
   }
 }

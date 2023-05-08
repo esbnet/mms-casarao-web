@@ -4,7 +4,7 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <div className='px-4 pt-16 bg-gray-900 sm:max-w-xl md:max-w-full lg:w-full md:px-24 lg:px-8'>
+    <div className='px-4  bg-gray-50 sm:max-w-xl md:max-w-full lg:w-full md:px-24 lg:px-8 h-auto'>
       {/* <div className='grid row-gap-10 mb-8 lg:grid-cols-6'>
         <div className='grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4'>
           <div>
@@ -197,10 +197,9 @@ export const Footer = () => {
         </div>
       </div> */}
 
-      <div className='flex flex-col justify-around pt-5 pb-10 border-t border-gray-800 sm:flex-row'>
+      <div className='flex flex-col justify-between py-4 border-t border-gray-500 sm:flex-row'>
         <p className='text-sm text-gray-500'>
-          Casarão Estúdios © {currentYear.toString()}. Todos os direitos
-          reservados.
+          Casarão Estúdios © {currentYear.toString()}
         </p>
         
         <div className='flex items-center mt-4 space-x-4 sm:mt-0'>

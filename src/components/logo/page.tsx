@@ -5,7 +5,7 @@ import LogoImg from "../../assets/images/logo.png"
 
 export function Logo() {
   return (
-    <div className='bg-slate-900 rounded-full  hover:shadow-lg hover:shadow-slate-50/40'>
+    <div className='bg-yellow-300 rounded-full  hover:shadow-lg hover:shadow-slate-50/40'>
       <Link href={"/"}>
         <Image
           src={LogoImg}

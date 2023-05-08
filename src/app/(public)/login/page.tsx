@@ -1,11 +1,8 @@
 "use client"
+
 import Image from "next/image"
-
 import { motion } from "framer-motion"
-
 import LogoImg from "../../../assets/images/logo.png"
-import { Footer } from "@/components/footer/page"
-
 import Tilt from "react-parallax-tilt"
 
 export default function Login() {
@@ -24,8 +21,7 @@ export default function Login() {
               }}
               className='m-8'
             >
-
-{/* /https://www.youtube.com/shorts/BTQHO-yP-CA */}
+              {/* /https://www.youtube.com/shorts/BTQHO-yP-CA */}
               <Image
                 src={LogoImg}
                 alt='Logo'
@@ -43,24 +39,26 @@ export default function Login() {
               <div className='text-white font-poppins text-2xl tracking-widest'>
                 Acessar o Casarão
               </div>
-              <input type='text' placeholder='email' className='input-text' />
+
+              <input
+                type='text'
+                placeholder='email'
+                className='input-text  rounded-md'
+              />
               <input
                 type='password'
                 placeholder='senha'
-                className='input-text'
+                className='input-text rounded-md'
               />
 
               <input
                 type='Submit'
-                className='cursor-pointer font-poppins rounded-full px-5 py-1 bg-white bg-opacity-50 hover:bg-white hover:bg-opacity-80 '
+                className='cursor-pointer font-poppins rounded-md px-5 py-2 bg-gray-300 bg-opacity-20 hover:bg-yellow-300 hover:bg-opacity-80 hover:text-black'
+                value={"Acessar"}
               />
 
-              
-<div className='mt-16 grid space-y-4'>
-                <button
-                  className='group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
- hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100'
-                >
+              <div className='mt-16 grid space-y-4'>
+                <button className='group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100'>
                   <div className='relative flex items-center space-x-4 justify-center'>
                     <img
                       src='https://tailus.io/sources/blocks/social/preview/images/google.svg'
@@ -88,16 +86,9 @@ export default function Login() {
                   </div>
                 </button>
               </div>
-
             </form>
-
-            
           </div>
         </div>
-      </div>
-
-      <div className=' fixed bottom-0 left-0 w-full'>
-        <Footer />
       </div>
     </div>
   )
