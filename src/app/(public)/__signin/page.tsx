@@ -1,11 +1,31 @@
 "use client"
 
+import providers from "@/components/providers"
+import { getSession, signIn, getCsrfToken } from "next-auth/react"
+
+import { NextApiRequest, NextApiResponse } from "next"
+
 import Image from "next/image"
 import { motion } from "framer-motion"
 import LogoImg from "../../../assets/images/logo.png"
 import Tilt from "react-parallax-tilt"
 
-export default function Login() {
+import user from "@/pages/api/user"
+import { useRef } from "react"
+
+export default function SignIn() {
+  const userName = useRef("")
+  const password = useRef("")
+
+  const onSubmit = async () => {
+    const result = await signIn("credentials", {
+      username: userName.current,
+      password: password.current,
+      redirect: true,
+      callbackUrl: "/",
+    })
+  }
+
   return (
     <div className='flex flex-col justify-center items-center w-full'>
       <div className='justify-around w-full h-full'>
@@ -44,11 +64,13 @@ export default function Login() {
                 type='text'
                 placeholder='email'
                 className='input-text  rounded-md'
+                onChange={(e) => (userName.current = e.target.value)}
               />
               <input
                 type='password'
                 placeholder='senha'
                 className='input-text rounded-md'
+                onChange={(e) => (password.current = e.target.value)}
               />
 
               <input
@@ -93,3 +115,4 @@ export default function Login() {
     </div>
   )
 }
+

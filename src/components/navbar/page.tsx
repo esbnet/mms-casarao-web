@@ -16,9 +16,9 @@ export function Navbar() {
         <li className=' border-b-4 border-white/0 hover:border-b-4 hover:border-slate-700'>
           <Link href={"/luthier"}>Luthier</Link>
         </li>
-        <li className=' border-b-4 border-white/0 hover:border-b-4 hover:border-slate-700'>
+        {/* <li className=' border-b-4 border-white/0 hover:border-b-4 hover:border-slate-700'>
           <Link href={"/community"}>Comunidade</Link>
-        </li>
+        </li> */}
       </ul>
     </nav>
   )

@@ -3,14 +3,10 @@ import { Footer } from "@/components/footer/page"
 
 import Providers from "@/components/providers"
 
-import { Inter } from "@next/font/google"
-
-const inter = Inter({ subsets: ["latin"] })
-
 export const metadata = {
   title: {
-    default: "Home",
-    template: "%s",
+    default: "Casarão Estúdios",
+    template: "%s | mms",
   },
   description: "Gestão de Agendamento de Serviços",
 }
@@ -22,9 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body className="bg-white/10 bg-casarao bg-no-repeat bg-center bg-cover">
+      <body className="bg-white bg-opacity-10 bg-casarao bg-no-repeat bg-center bg-cover">
       <Providers>
-        <div className='flex flex-col w-full justify-between h-screen'>
+        <div className='flex flex-col justify-between w-full h-screen'>
           <Header />
           <div className='px-4'>
             {children}

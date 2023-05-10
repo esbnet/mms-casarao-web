@@ -5,10 +5,11 @@ import { signIn, signOut, useSession } from "next-auth/react"
 import { Navbar } from "../navbar/page"
 import Profile from "../profile/page"
 import Logout from "../logout/page"
-import Login from "../login/page"
+import Signin from "../signin/page"
 import Settings from "../settings/page"
 
 import { Toaster } from "react-hot-toast"
+import SigninButton from "../SigninButton"
 
 export const metadata = {
   title: "mms - casarão",
@@ -23,18 +24,21 @@ export function Header() {
       <Navbar />
       <div className='flex gap-2'>
         {session?.user ? (
-          <button  onClick={()=> signIn()}>
+          <button onClick={() => signIn()}>
             <Profile name='Edmilson' age={25} />
             <Settings />
             <Logout name='Edmilson' age={25} />
           </button>
         ) : (
-          <button onClick={()=> signIn()}>
-            <Login/>
-          </button>
+          <>
+            {session?.user}
+            <button onClick={() => signIn()}>
+              <Signin />
+            </button>
+            {/* <SigninButton /> */}
+          </>
         )}
       </div>
-      <Toaster />
     </div>
   )
 }

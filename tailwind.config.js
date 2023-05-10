@@ -33,6 +33,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         hendrix: "url('/images/hendrix.png')",
+        casarao: "url('/images/casarao2.jpg')",
         
       },
       spacing: {
