@@ -24,10 +24,11 @@ export function Header() {
       <Navbar />
       <div className='flex gap-2'>
         {session?.user ? (
-          <button onClick={() => signIn()}>
+          <button className="flex" onClick={() => signOut()}>
             <Profile name='Edmilson' age={25} />
             <Settings />
             <Logout name='Edmilson' age={25} />
+            {session.user.name}
           </button>
         ) : (
           <>

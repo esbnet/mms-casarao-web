@@ -16,7 +16,7 @@ export default function Schedule() {
 
       <div className=' w-auto bg-black/30 h-96 text-white p-4'>
         <h1 className='text-4xl font-bold mb-4'>Agendamento de Ensaio</h1>
-        <p>
+        <p className='text-yellow-300'>
           Se você é um músico ou faz parte de uma banda, sabe como é importante
           ter um espaço adequado para ensaiar e praticar suas músicas. E é
           exatamente isso que nosso serviço de agendamento oferece: um espaço
@@ -27,7 +27,6 @@ export default function Schedule() {
           comece a praticar em um ambiente profissional!
         </p>
       </div>
-      <div className=' w-auto bg-yellow-300/20 h-96' />
     </div>
   )
 }

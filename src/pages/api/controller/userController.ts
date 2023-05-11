@@ -13,6 +13,7 @@ export async function postUser(req: NextApiRequest, res: NextApiResponse) {
     const { name, email, avatar_url, status } = req.body
 
     let user = await prisma.user.findUnique({ where: { email: email } })
+
     if (user !== null) {
       return res.status(200).json({
         warning: "Já existe um usuário cadastrado com esse email.",

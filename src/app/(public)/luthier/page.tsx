@@ -14,11 +14,14 @@ export const metadata = {
 
 export default function Luthier() {
   return (
-    <div>
+    <div className='min-h-screen'>
       <ChildrenTitle title='Luthieria' iconName={<VscTools size={54} />} />
+
       <div className=' w-auto bg-black/30 h-96 text-white p-4'>
-        <h1 className="text-4xl font-bold mb-4" >Serviço de Luthieria em instrumentos de corda</h1>
-        <p>
+        <h1 className='text-4xl font-bold mb-4'>
+          Serviço de Luthieria em instrumentos de corda
+        </h1>
+        <p className='text-yellow-300'>
           Se você é um músico que toca um instrumento de corda, sabe como é
           importante ter um instrumento bem cuidado e ajustado. É exatamente
           isso que nosso serviço de luthieria oferece. Nossa equipe de
@@ -31,7 +34,6 @@ export default function Luthier() {
           com a melhor qualidade possível!
         </p>
       </div>
-      <div className=' w-auto bg-yellow-300/20 h-96' />
     </div>
   )
 }

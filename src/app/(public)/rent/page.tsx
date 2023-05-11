@@ -13,7 +13,7 @@ export default function Aluguel() {
   return (
     <div className='min-h-screen'>
       <ChildrenTitle
-        title='Aluguéis'
+        title='Aluguel de Equipamentos'
         iconName={<BsArrowLeftRight size={54} />}
       />
 
@@ -21,7 +21,7 @@ export default function Aluguel() {
         <h1 className='text-4xl font-bold mb-4'>
           Aluguel de equipamentos para sonorização
         </h1>
-        <p>
+        <p className='text-yellow-300'>
           Não há nada pior do que tocar em um show ou evento sem o equipamento
           adequado. Com nosso serviço de aluguel de equipamentos de sonorização,
           você nunca mais terá que se preocupar com isso. Oferecemos uma ampla
@@ -33,7 +33,6 @@ export default function Aluguel() {
           apresentação memorável!
         </p>
       </div>
-      <div className=' w-auto bg-yellow-300/20 h-96' />
     </div>
   )
 }
