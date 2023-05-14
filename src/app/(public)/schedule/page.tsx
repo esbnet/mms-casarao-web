@@ -11,10 +11,10 @@ export const metadata = {
 
 export default function Schedule() {
   return (
-    <div className='min-h-screen'>
+    <>
       <ChildrenTitle title='Agendamentos' iconName={<RxCalendar size={54} />} />
 
-      <div className=' w-auto bg-black/30 h-96 text-white p-4'>
+      <div className=' w-auto bg-black/30 h-96 p-4'>
         <h1 className='text-4xl font-bold mb-4'>Agendamento de Ensaio</h1>
         <p className='text-yellow-300'>
           Se você é um músico ou faz parte de uma banda, sabe como é importante
@@ -27,6 +27,6 @@ export default function Schedule() {
           comece a praticar em um ambiente profissional!
         </p>
       </div>
-    </div>
+    </>
   )
 }

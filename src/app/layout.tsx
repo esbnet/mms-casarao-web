@@ -1,9 +1,7 @@
 import "../styles/globals.css"
 
 import Providers from "@/components/providers"
-import { Inter } from "@next/font/google"
-
-const inter = Inter({ subsets: ["latin"] })
+import { AuthProvider } from "@/context/AuthContext"
 
 type metaProps = {
   title: {
@@ -11,10 +9,12 @@ type metaProps = {
   }
 }
 
-export const metadata: metaProps = {
+export const metadata = {
   title: {
-    template: "Casarão | %s",
+    default: "Home",
+    template: "%s",
   },
+  description: "Gestão de Agendamento de Serviços",
 }
 
 export default function RootLayout({
@@ -23,11 +23,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='pt-BR' className={inter.className}>
-      <body className=' bg-stone-50 text-gray-800'>
-        <Providers>
-          <div>{children}</div>
-        </Providers>
+    <html lang='pt-BR'>
+      <body>
+        <AuthProvider>
+          <Providers>
+            <div>{children}</div>
+          </Providers>
+        </AuthProvider>
       </body>
     </html>
   )

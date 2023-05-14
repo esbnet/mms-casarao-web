@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client"
 
 import {
   getUsers,
@@ -7,8 +6,6 @@ import {
   updateUser,
   deleteUser,
 } from "../controller/userController"
-
-const prisma = new PrismaClient()
 
 export default async function user(req: NextApiRequest, res: NextApiResponse) {
   const method = req.method

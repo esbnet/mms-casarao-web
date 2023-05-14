@@ -28,7 +28,7 @@ export function Header() {
             <Profile name='Edmilson' age={25} />
             <Settings />
             <Logout name='Edmilson' age={25} />
-            {session.user.name}
+            {session.user.name+"teste"}
           </button>
         ) : (
           <>

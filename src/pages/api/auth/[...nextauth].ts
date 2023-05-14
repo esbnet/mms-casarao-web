@@ -47,8 +47,8 @@ export default NextAuth({
       return session
     },
   },
-  // pages:{
-  //   signIn:"/",
-  //   signOut: '/'
-  // }
+  pages:{
+    signIn:"/signin",
+    // signOut: '/'
+  }
 })

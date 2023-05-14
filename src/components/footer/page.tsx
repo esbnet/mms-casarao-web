@@ -4,7 +4,7 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <div className='text-gray-50 bg-gray-900 sm:max-w-xl md:max-w-full lg:w-full h-auto'>
+    <div className='text-gray-50 bg-gray-900/80 sm:max-w-xl md:max-w-full lg:w-full h-auto'>
       {/* <div className='grid row-gap-10 mb-8 lg:grid-cols-6'>
         <div className='grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4'>
           <div>
@@ -197,9 +197,9 @@ export const Footer = () => {
         </div>
       </div> */}
 
-      <div className='flex flex-col justify-center gap-5 py-4 border-t border-gray-500 sm:flex-row'>
+      <div className='flex justify-center items-center gap-5 py-4 border-t border-gray-500 sm:flex-row'>
         <p className='text-sm '>Casarão Estúdios - {currentYear.toString()} ©</p>|
-        <div className='flex items-center mt-4 space-x-4 sm:mt-0'>
+        <div className='flex justify-center items-center space-x-2 sm:mt-0'>
           <a
             href='/'
             className=' transition-colors duration-300 hover:text-teal-accent-400'
