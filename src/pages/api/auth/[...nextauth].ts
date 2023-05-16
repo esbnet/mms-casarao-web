@@ -1,7 +1,6 @@
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
 
-
 const baseUrl = process.env.NEXTAUTH_URL
 
 export default NextAuth({

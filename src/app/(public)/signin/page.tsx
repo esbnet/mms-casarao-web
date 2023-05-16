@@ -27,7 +27,7 @@ export default function SignIn() {
       .then((response) => {
         console.log(response, "response")
         if (response?.ok) {
-          router.push('/dashboard')
+          router.push('/scheduling')
         } else {
           setPageState((old) => ({
             ...data,

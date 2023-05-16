@@ -21,16 +21,21 @@ export function Header() {
       <Navbar />
       <div className='flex gap-2'>
         {session?.user ? (
+          <>
           <button className="flex" onClick={() => signOut()}>
             <Profile name='Edmilson' age={25} />
             <Settings />
             <Logout name='Edmilson' age={25} />
           </button>
+          {session?.user}
+          </>
         ) : (
           <>
             <button onClick={() => signIn()}>
               <Signin />
+              
             </button>
+            {session?.user}
             {/* <SigninButton /> */}
           </>
         )}
