@@ -7,6 +7,8 @@ import { Footer } from "@/components/footer/page"
 import Sidebar from "@/components/sidebar/page"
 import Head from "next/head"
 
+import {useSession} from 'next-auth/react'
+
 const queryClient = new QueryClient()
 
 export default function RootLayout({
@@ -14,6 +16,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const { data: session } = useSession({
+    required: true,
+  })
+
+  if (!session) {
+    return <></>
+  }
+
   return (
     <>
       <Head>

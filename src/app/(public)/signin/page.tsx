@@ -1,5 +1,9 @@
 "use client"
 
+import { useRouter } from 'next/navigation'
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+
 import { signIn } from "next-auth/react"
 
 import Image from "next/image"
@@ -7,13 +11,42 @@ import { motion } from "framer-motion"
 import LogoImg from "../../../assets/images/logo.png"
 import Tilt from "react-parallax-tilt"
 
-import { useForm } from "react-hook-form"
-
 export default function SignIn() {
+  const router = useRouter()
   const { register, handleSubmit } = useForm()
 
-  function handleSignIn(data: any) {
-    console.log(data)
+  const [pageState, setPageState] = useState({ error: "", processing: false })
+
+  const handleSignIn = async (data: any) => {
+    setPageState((old) => ({ ...old, processing: true, error: "" }))
+
+    await signIn("credentials", {
+      ...data,
+      redirect: false,
+    })
+      .then((response) => {
+        console.log(response, "response")
+        if (response?.ok) {
+          router.push('/dashboard')
+        } else {
+          setPageState((old) => ({
+            ...data,
+            processing: false,
+            error: response?.error,
+          }))
+          {
+            alert(response?.error)
+            setPageState((old) => ({
+              ...data,
+              processing: false,
+              error: response?.error,
+            }))
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error, "error")
+      })
   }
 
   return (
@@ -51,7 +84,7 @@ export default function SignIn() {
                   Acessar sua conta
                 </h2>
               </div>
-
+              <p> {pageState.error}</p>
               <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
                 <form
                   className='space-y-6'
@@ -111,6 +144,7 @@ export default function SignIn() {
 
                   <div>
                     <button
+                      disabled={pageState.processing}
                       type='submit'
                       className='flex w-full justify-center rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-300 hover:text-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-300'
                     >

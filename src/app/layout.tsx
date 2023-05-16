@@ -1,7 +1,6 @@
 import "../styles/globals.css"
 
 import Providers from "@/components/providers"
-import { AuthProvider } from "@/context/AuthContext"
 
 type metaProps = {
   title: {
@@ -25,11 +24,9 @@ export default function RootLayout({
   return (
     <html lang='pt-BR'>
       <body>
-        <AuthProvider>
-          <Providers>
-            <div>{children}</div>
-          </Providers>
-        </AuthProvider>
+        <Providers>
+          <div>{children}</div>
+        </Providers>
       </body>
     </html>
   )

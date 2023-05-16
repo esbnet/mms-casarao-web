@@ -6,11 +6,10 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 
 import { AiOutlineSchedule } from "react-icons/ai"
-import { FaExchangeAlt, FaTheaterMasks } from "react-icons/fa"
+import { FaExchangeAlt } from "react-icons/fa"
 import { VscTools } from "react-icons/vsc"
 
 import LogoImg from "../../assets/images/logo.png"
-import { getSession } from "next-auth/react"
 
 const messagens = [
   'Encontre seu ritmo em nossas salas de ensaio profissionais! Com equipamentos de qualidade e ambiente acolhedor, você pode aprimorar suas habilidades musicais e se preparar para arrasar em seu próximo show. Agende agora e faça seu som ecoar em nossos estúdios de áudio de alta qualidade!',
@@ -27,18 +26,7 @@ const slogan = [
 ]
 
 export default function Home() {
-
-  const session = getSession()
   
-  if(!session) {
-    return {
-      redirect: {
-        destination: "/login"
-      }
-    }
-   }
- 
-
   return (
     <section className='flex flex-col justify-center items-center gap-20'>
 
